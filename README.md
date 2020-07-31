@@ -10,5 +10,5 @@ MYSQL_ROOT_PASSWORD=root-password
 MYSQL_DATABASE=app
 MYSQL_USER=app
 MYSQL_PASSWORD=app-password
-
+```
 - Run `docker-compose up` and load up http://localhost:8080/textpattern/setup/
