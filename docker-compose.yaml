@@ -1,8 +1,25 @@
 version: '3.8'
 services:
+  web:
+    image: "caddy:latest"
+    ports:
+      - "8080:80"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./src:/srv
+    networks:
+      - default
   php:
     build: ./docker/php
     restart: unless-stopped
     working_dir: /srv
     volumes:
       - ./src:/srv
+    networks:
+      - default
+
+volumes:
+  caddy_config:
+  caddy_data:
