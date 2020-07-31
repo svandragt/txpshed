@@ -1,5 +1,5 @@
 :80 {
 	root * /srv
-	php_fastcgi app:9000
+	php_fastcgi php:9000
 	file_server	
 }

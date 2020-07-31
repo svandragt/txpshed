@@ -1,17 +1,17 @@
 version: '3.8'
 services:
-  web:
+  caddy:
     image: "caddy:latest"
     ports:
       - "8080:80"
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - ./docker/web/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./src:/srv
     networks:
       - default
-  db:
+  mysql:
     image: "mysql:latest"
     ports:
       - "6033:3306"
@@ -23,8 +23,8 @@ services:
       - backend
     env_file:
       - .env
-  app:
-    build: ./docker/app
+  php:
+    build: ./docker/php
     restart: unless-stopped
     working_dir: /srv
     volumes:
