@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  php:
+    image: php:7.4-fpm
+    restart: unless-stopped
+    working_dir: /srv
+    volumes:
+      - ./src:/srv
