@@ -7,10 +7,25 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./src:/srv
     networks:
       - default
+  db:
+    image: "mysql:latest"
+    ports:
+      - "6033:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: app
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app_password
+    restart: always
+    networks:
+      - backend
   php:
     build: ./docker/php
     restart: unless-stopped
@@ -19,7 +34,12 @@ services:
       - ./src:/srv
     networks:
       - default
+      - backend
 
 volumes:
+  dbdata:
   caddy_config:
   caddy_data:
+networks:
+  backend:
+    internal: true
