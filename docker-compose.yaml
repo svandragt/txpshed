@@ -7,7 +7,7 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./docker/web/Caddyfile:/etc/caddy/Caddyfile
       - ./src:/srv
     networks:
       - default
@@ -23,8 +23,8 @@ services:
       - backend
     env_file:
       - .env
-  php:
-    build: ./docker/php
+  app:
+    build: ./docker/app
     restart: unless-stopped
     working_dir: /srv
     volumes:
